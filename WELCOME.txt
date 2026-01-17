@@ -1,0 +1,186 @@
+```
+╔═══════════════════════════════════════════════════════════════╗
+║                                                               ║
+║   ███████╗██╗   ██╗██╗  ██╗██╗   ██╗██████╗ ██╗              ║
+║   ╚══███╔╝██║   ██║██║ ██╔╝██║   ██║██╔══██╗██║              ║
+║     ███╔╝ ██║   ██║█████╔╝ ██║   ██║██████╔╝██║              ║
+║    ███╔╝  ██║   ██║██╔═██╗ ██║   ██║██╔══██╗██║              ║
+║   ███████╗╚██████╔╝██║  ██╗╚██████╔╝██║  ██║██║              ║
+║   ╚══════╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝              ║
+║                                                               ║
+║             ███████╗██╗      ██████╗ ██╗    ██╗               ║
+║             ██╔════╝██║     ██╔═══██╗██║    ██║               ║
+║             █████╗  ██║     ██║   ██║██║ █╗ ██║               ║
+║             ██╔══╝  ██║     ██║   ██║██║███╗██║               ║
+║             ██║     ███████╗╚██████╔╝╚███╔███╔╝               ║
+║             ╚═╝     ╚══════╝ ╚═════╝  ╚══╝╚══╝                ║
+║                                                               ║
+║                    ELITE EDITION                             ║
+║                                                               ║
+║        🎙️  Local-First AI Dictation Tool  ✨                 ║
+║                                                               ║
+╚═══════════════════════════════════════════════════════════════╝
+
+     Built for Developers | Optimized for Technical Vocabulary
+              
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✨ FEATURES
+
+  🧠 AI-Powered Transcription
+     • Faster-Whisper with base model (int8 quantization)
+     • Voice Activity Detection (VAD) built-in
+     • Technical prompt optimization
+  
+  ✨ Wispr-Style Refinement
+     • 100+ technical jargon mappings
+     • Auto-capitalization & punctuation
+     • Smart grammar fixes
+  
+  🎨 Elegant Floating Button
+     • Beige: Idle 🎤
+     • Pulsing Red: Recording ⏺
+     • Glowing Gold: Processing ⚡
+  
+  📋 Auto-Paste Magic
+     • Saves to history.json
+     • Copies to clipboard
+     • Auto-pastes to active window
+  
+  ⚡ Non-Blocking Performance
+     • Heavy AI in background thread
+     • Smooth 20 FPS animations
+     • 3-4s latency (CPU)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 QUICK START
+
+  1. Setup (one-time):
+     
+     Windows:   setup.bat
+     Mac/Linux: ./setup.sh
+  
+  2. Run:
+     
+     Windows:   run.bat
+     Mac/Linux: ./run.sh
+  
+  3. Use:
+     
+     Click → Speak → Click → Text appears! ✨
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 DOCUMENTATION
+
+  README.md         → User guide & features
+  QUICKSTART.md     → Quick reference & troubleshooting  
+  DOCUMENTATION.md  → Technical architecture
+  ARCHITECTURE.md   → System flow diagrams
+  PROJECT_SUMMARY.md→ Complete project overview
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 OPTIMIZED FOR
+
+  Programming:  Python • JavaScript • TypeScript • Go • Rust
+  AI/ML:        RAG • LLM • GPT • LangChain • LangGraph • PyTorch
+  Databases:    SQL • PostgreSQL • MongoDB • Redis • Elasticsearch
+  DevOps:       Docker • Kubernetes • AWS • CI/CD • Nginx
+  Web/APIs:     REST • GraphQL • JSON • WebSocket • FastAPI
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔧 TECHNICAL STACK
+
+  AI:           faster-whisper, PyTorch
+  Audio:        sounddevice, wavio, numpy
+  GUI:          PyQt6 (frameless floating button)
+  Automation:   pyperclip, pyautogui
+  Language:     Python 3.8+ with full type hints
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ REQUIREMENTS
+
+  • Python 3.8 or higher
+  • 4GB+ RAM recommended
+  • Microphone access
+  • Windows 10/11, macOS, or Linux
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 WORKFLOW
+
+  ┌─────────┐
+  │  IDLE   │  Beige, 🎤    Click to start
+  └────┬────┘
+       │
+       ▼
+  ┌─────────┐
+  │RECORDING│  Pulsing Red, ⏺    Speak your message
+  └────┬────┘
+       │
+       ▼
+  ┌─────────┐
+  │PROCESSING│ Glowing Gold, ⚡   AI transcribing
+  └────┬────┘
+       │
+       ▼
+  ┌─────────┐
+  │  DONE   │  Text auto-pasted! ✨
+  └─────────┘
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 PROJECT STRUCTURE
+
+  ZukuriFlow/
+  ├── src/
+  │   ├── zukuriflow_elite.py    ⭐ Main application
+  │   └── utils/
+  │       ├── whisper_engine.py   🧠 AI transcription
+  │       ├── audio_recorder.py   🎙️ Audio capture
+  │       ├── text_refiner.py     ✨ Text refinement
+  │       └── clipboard_manager.py 📋 Persistence
+  │
+  ├── output/
+  │   └── history.json           💾 All transcriptions
+  │
+  ├── Documentation (5 files)
+  ├── Setup & run scripts (4 files)
+  └── Config (.gitignore, requirements.txt)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🌟 WHY ZUKURIFLOW ELITE?
+
+  ✅ Local-First     All processing on your machine
+  ✅ Developer-Ready Technical vocabulary built-in
+  ✅ Fast            int8 quantization for speed
+  ✅ Elegant         Beautiful floating button UI
+  ✅ Automatic       Auto-paste to any application
+  ✅ Persistent      All history saved locally
+  ✅ Clean Code      Type hints, docstrings, modular
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📞 GETTING HELP
+
+  1. Check console output for errors
+  2. Review QUICKSTART.md for common issues
+  3. Check DOCUMENTATION.md for technical details
+  4. Verify Python version: python --version (3.8+)
+  5. Ensure microphone access in OS settings
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        Built with ❤️ using Senior Python Engineering Practices
+                      
+                  Enjoy your AI dictation tool! 🎤✨
+                  
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Version: 1.0.0 | Date: January 17, 2026 | License: MIT
+```

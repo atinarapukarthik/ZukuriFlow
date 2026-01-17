@@ -1,0 +1,18 @@
+# Audio Processing
+sounddevice
+wavio
+numpy
+
+# AI/ML
+faster-whisper
+torch
+
+# GUI
+PyQt6
+
+# Clipboard & Automation
+pyperclip
+pyautogui
+
+# Optional AI Enhancement
+openai
