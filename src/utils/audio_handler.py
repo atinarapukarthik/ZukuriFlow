@@ -5,11 +5,13 @@ Handles microphone input and WAV file storage for ZukuriFlow Elite.
 
 import logging
 import threading
-from typing import Optional, List
+from typing import Optional, List, TYPE_CHECKING
 from pathlib import Path
 
+if TYPE_CHECKING:
+    import sounddevice as sd
+
 import numpy as np
-import sounddevice as sd
 import wavio
 
 # Configure logging
@@ -42,7 +44,7 @@ class Recorder:
 
         # Recording state
         self._frames: List[np.ndarray] = []
-        self._stream: Optional[sd.InputStream] = None
+        self._stream: Optional["sd.InputStream"] = None
         self._is_recording: bool = False
         self._lock = threading.Lock()
 
@@ -58,6 +60,7 @@ class Recorder:
         Raises:
             RuntimeError: If no microphone is detected
         """
+        import sounddevice as sd
         try:
             devices = sd.query_devices()
             input_devices = [d for d in devices if d["max_input_channels"] > 0]
@@ -111,6 +114,7 @@ class Recorder:
                 self._frames = []
                 self._is_recording = True
 
+                import sounddevice as sd
                 # Create and start input stream
                 self._stream = sd.InputStream(
                     samplerate=self.sample_rate,
@@ -214,7 +218,7 @@ class Recorder:
 
     def __del__(self) -> None:
         """Cleanup resources on deletion."""
-        if self._stream:
+        if hasattr(self, "_stream") and self._stream:
             try:
                 self._stream.stop()
                 self._stream.close()

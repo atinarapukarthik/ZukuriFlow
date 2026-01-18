@@ -4,7 +4,6 @@ AudioRecorder - High-quality audio recording using sounddevice and wavio
 
 from typing import Optional
 import numpy as np
-import sounddevice as sd
 import wavio
 
 
@@ -45,6 +44,7 @@ class AudioRecorder:
         Returns:
             NumPy array of audio samples (float32, normalized to [-1, 1])
         """
+        import sounddevice as sd
         if duration:
             print(f"🔴 Recording for {duration}s...")
             audio_data = sd.rec(
@@ -131,6 +131,7 @@ class StreamingRecorder:
             if self.is_recording:
                 self.audio_frames.append(indata.copy())
 
+        import sounddevice as sd
         self.stream = sd.InputStream(
             samplerate=self.sample_rate,
             channels=self.channels,

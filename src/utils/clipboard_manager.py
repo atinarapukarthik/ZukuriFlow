@@ -6,8 +6,6 @@ from typing import Dict, List, Optional
 from datetime import datetime
 from pathlib import Path
 import json
-import pyperclip
-import pyautogui
 
 
 class ClipboardManager:
@@ -86,6 +84,7 @@ class ClipboardManager:
         Args:
             text: Text to copy
         """
+        import pyperclip
         pyperclip.copy(text)
         print(f"📋 Copied to clipboard: {text[:50]}...")
 
@@ -98,6 +97,7 @@ class ClipboardManager:
         """
         import platform
 
+        import pyautogui
         # Small delay to ensure clipboard is ready
         pyautogui.sleep(delay)
 
