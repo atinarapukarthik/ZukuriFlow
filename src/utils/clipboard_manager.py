@@ -85,6 +85,7 @@ class ClipboardManager:
             text: Text to copy
         """
         import pyperclip
+
         pyperclip.copy(text)
         print(f"📋 Copied to clipboard: {text[:50]}...")
 
@@ -98,6 +99,7 @@ class ClipboardManager:
         import platform
 
         import pyautogui
+
         # Small delay to ensure clipboard is ready
         pyautogui.sleep(delay)
 

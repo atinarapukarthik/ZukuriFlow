@@ -61,6 +61,7 @@ class Recorder:
             RuntimeError: If no microphone is detected
         """
         import sounddevice as sd
+
         try:
             devices = sd.query_devices()
             input_devices = [d for d in devices if d["max_input_channels"] > 0]
@@ -115,6 +116,7 @@ class Recorder:
                 self._is_recording = True
 
                 import sounddevice as sd
+
                 # Create and start input stream
                 self._stream = sd.InputStream(
                     samplerate=self.sample_rate,

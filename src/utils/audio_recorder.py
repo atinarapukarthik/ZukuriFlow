@@ -45,6 +45,7 @@ class AudioRecorder:
             NumPy array of audio samples (float32, normalized to [-1, 1])
         """
         import sounddevice as sd
+
         if duration:
             print(f"🔴 Recording for {duration}s...")
             audio_data = sd.rec(
@@ -132,6 +133,7 @@ class StreamingRecorder:
                 self.audio_frames.append(indata.copy())
 
         import sounddevice as sd
+
         self.stream = sd.InputStream(
             samplerate=self.sample_rate,
             channels=self.channels,
