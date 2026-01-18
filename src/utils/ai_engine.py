@@ -94,20 +94,13 @@ class WhisperEngine:
         logger.info(f"Transcribing audio: {file_path}")
 
         try:
-            # Transcribe with initial_prompt (CRITICAL) and VAD filter
+            # Use this specific parameter to fix wrong word detection
             segments, info = self.model.transcribe(
                 str(audio_path),
-                language="en",
-                initial_prompt=self.initial_prompt,  # CRITICAL: Contains technical keywords
-                vad_filter=True,  # Automatically remove silences
-                vad_parameters=dict(
-                    threshold=0.5,
-                    min_speech_duration_ms=250,
-                    min_silence_duration_ms=500
-                ),
-                beam_size=5,
-                best_of=5,
-                temperature=0.0
+                # Context-aware words
+                initial_prompt="ZukuriFlow, SDE, Python, LangGraph, Next.js, SQL, RAG, Internshala",
+                vad_filter=True,  # Auto-detect and remove silence
+                beam_size=5  # Balanced speed and accuracy
             )
 
             # Combine all segments into final text

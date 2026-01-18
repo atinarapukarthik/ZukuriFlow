@@ -170,3 +170,33 @@ class TextRefiner:
         """
         self.technical_mappings[term.lower()] = proper_form
         logger.info(f"Added custom mapping: '{term}' -> '{proper_form}'")
+
+
+# Standalone refine function for simple usage
+def refine(text: str) -> str:
+    """
+    Wispr-style text cleaning function.
+
+    Applies:
+    1. Capitalize the first letter of the sentence
+    2. Ensure technical terms are correctly cased
+    3. Add ending punctuation if missing
+
+    Args:
+        text: Raw transcription text
+
+    Returns:
+        str: Refined and formatted text
+    """
+    # Capitalize the first letter of the sentence
+    text = text.strip().capitalize()
+
+    # Ensure technical terms are correctly cased
+    mappings = {"sql": "SQL", "sde": "SDE", "rag": "RAG"}
+    for wrong, correct in mappings.items():
+        text = text.replace(wrong, correct)
+
+    # Add ending punctuation if missing
+    if not text.endswith(('.', '?', '!')):
+        text += "."
+    return text
