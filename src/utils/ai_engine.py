@@ -30,10 +30,7 @@ class WhisperEngine:
     )
 
     def __init__(
-        self,
-        model_size: str = "base",
-        device: str = "cpu",
-        compute_type: str = "int8"
+        self, model_size: str = "base", device: str = "cpu", compute_type: str = "int8"
     ) -> None:
         """
         Initialize WhisperEngine with optimized settings.
@@ -44,7 +41,8 @@ class WhisperEngine:
             compute_type: Quantization type - 'int8' for maximum CPU efficiency
         """
         logger.info(
-            f"Initializing WhisperEngine: model={model_size}, device={device}, compute={compute_type}")
+            f"Initializing WhisperEngine: model={model_size}, device={device}, compute={compute_type}"
+        )
 
         self.model_size = model_size
         self.device = device
@@ -52,9 +50,7 @@ class WhisperEngine:
 
         # Initialize the Whisper model with specified settings
         self.model: WhisperModel = WhisperModel(
-            model_size,
-            device=device,
-            compute_type=compute_type
+            model_size, device=device, compute_type=compute_type
         )
 
         # CRITICAL: Initial prompt with technical keywords to fix "wrong word" detection
@@ -100,17 +96,16 @@ class WhisperEngine:
                 # Context-aware words
                 initial_prompt="ZukuriFlow, SDE, Python, LangGraph, Next.js, SQL, RAG, Internshala",
                 vad_filter=True,  # Auto-detect and remove silence
-                beam_size=5  # Balanced speed and accuracy
+                beam_size=5,  # Balanced speed and accuracy
             )
 
             # Combine all segments into final text
-            transcription = " ".join([segment.text.strip()
-                                     for segment in segments])
+            transcription = " ".join([segment.text.strip() for segment in segments])
 
             logger.info(
-                f"Detected language: {info.language} (confidence: {info.language_probability:.1%})")
-            logger.info(
-                f"Transcription complete: {len(transcription)} characters")
+                f"Detected language: {info.language} (confidence: {info.language_probability:.1%})"
+            )
+            logger.info(f"Transcription complete: {len(transcription)} characters")
 
             return transcription.strip()
 
@@ -139,25 +134,27 @@ class WhisperEngine:
             language="en",
             initial_prompt=self.initial_prompt,
             vad_filter=True,
-            word_timestamps=True
+            word_timestamps=True,
         )
 
         result: List[Dict[str, Any]] = []
         for segment in segments:
-            result.append({
-                "start": segment.start,
-                "end": segment.end,
-                "text": segment.text.strip(),
-                "words": [
-                    {
-                        "word": word.word,
-                        "start": word.start,
-                        "end": word.end,
-                        "probability": word.probability
-                    }
-                    for word in (segment.words or [])
-                ]
-            })
+            result.append(
+                {
+                    "start": segment.start,
+                    "end": segment.end,
+                    "text": segment.text.strip(),
+                    "words": [
+                        {
+                            "word": word.word,
+                            "start": word.start,
+                            "end": word.end,
+                            "probability": word.probability,
+                        }
+                        for word in (segment.words or [])
+                    ],
+                }
+            )
 
         logger.info(f"Extracted {len(result)} segments with timestamps")
         return result
@@ -173,5 +170,5 @@ class WhisperEngine:
             "model_size": self.model_size,
             "device": self.device,
             "compute_type": self.compute_type,
-            "initial_prompt": self.initial_prompt
+            "initial_prompt": self.initial_prompt,
         }

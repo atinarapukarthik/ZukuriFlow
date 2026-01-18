@@ -42,7 +42,7 @@ class ZukuriFlowController:
         self,
         on_status_change: Optional[Callable[[str], None]] = None,
         on_result: Optional[Callable[[str], None]] = None,
-        on_error: Optional[Callable[[str], None]] = None
+        on_error: Optional[Callable[[str], None]] = None,
     ) -> None:
         """
         Initialize ZukuriFlowController with all required components.
@@ -63,9 +63,7 @@ class ZukuriFlowController:
         try:
             self._recorder = Recorder(sample_rate=16000, channels=1)
             self._whisper = WhisperEngine(
-                model_size="base",
-                device="cpu",
-                compute_type="int8"
+                model_size="base", device="cpu", compute_type="int8"
             )
             self._refiner = TextRefiner()
 
@@ -137,8 +135,7 @@ class ZukuriFlowController:
 
         # Start processing in background thread
         self._processing_thread = threading.Thread(
-            target=self._process_voice_workflow,
-            daemon=True
+            target=self._process_voice_workflow, daemon=True
         )
         self._processing_thread.start()
 
@@ -267,11 +264,12 @@ class ZukuriFlowController:
 
             # Paste using Ctrl+V (Windows/Linux) or Cmd+V (macOS)
             import platform
+
             if platform.system() == "Darwin":
-                pyautogui.hotkey('command', 'v')
+                pyautogui.hotkey("command", "v")
                 logger.info("Pasted using Cmd+V (macOS)")
             else:
-                pyautogui.hotkey('ctrl', 'v')
+                pyautogui.hotkey("ctrl", "v")
                 logger.info("Pasted using Ctrl+V")
 
         except Exception as e:

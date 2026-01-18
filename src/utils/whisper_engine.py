@@ -18,11 +18,33 @@ class WhisperEngine:
 
     # Technical vocabulary for improved recognition
     TECHNICAL_KEYWORDS = [
-        "Python", "SQL", "RAG", "LangGraph", "SDE", "API",
-        "REST", "GraphQL", "Docker", "Kubernetes", "AWS",
-        "React", "Vue", "TypeScript", "JavaScript", "FastAPI",
-        "PostgreSQL", "MongoDB", "Redis", "Nginx", "Git",
-        "CI/CD", "DevOps", "LLM", "GPT", "Claude", "OpenAI"
+        "Python",
+        "SQL",
+        "RAG",
+        "LangGraph",
+        "SDE",
+        "API",
+        "REST",
+        "GraphQL",
+        "Docker",
+        "Kubernetes",
+        "AWS",
+        "React",
+        "Vue",
+        "TypeScript",
+        "JavaScript",
+        "FastAPI",
+        "PostgreSQL",
+        "MongoDB",
+        "Redis",
+        "Nginx",
+        "Git",
+        "CI/CD",
+        "DevOps",
+        "LLM",
+        "GPT",
+        "Claude",
+        "OpenAI",
     ]
 
     def __init__(
@@ -30,7 +52,7 @@ class WhisperEngine:
         model_size: str = "base",
         device: str = "cpu",
         compute_type: str = "int8",
-        language: Optional[str] = "en"
+        language: Optional[str] = "en",
     ) -> None:
         """
         Initialize the WhisperEngine with specified configuration.
@@ -42,13 +64,10 @@ class WhisperEngine:
             language: Target language code (e.g., 'en', 'es'). None for auto-detect.
         """
         print(
-            f"🔧 Loading Faster-Whisper model: {model_size} on {device} ({compute_type})")
-
-        self.model = WhisperModel(
-            model_size,
-            device=device,
-            compute_type=compute_type
+            f"🔧 Loading Faster-Whisper model: {model_size} on {device} ({compute_type})"
         )
+
+        self.model = WhisperModel(model_size, device=device, compute_type=compute_type)
 
         self.language = language
 
@@ -63,10 +82,7 @@ class WhisperEngine:
         print("✅ WhisperEngine initialized successfully")
 
     def transcribe(
-        self,
-        audio_data: np.ndarray,
-        use_vad: bool = True,
-        beam_size: int = 5
+        self, audio_data: np.ndarray, use_vad: bool = True, beam_size: int = 5
     ) -> str:
         """
         Transcribe audio data with VAD filtering and technical prompt.
@@ -97,15 +113,12 @@ class WhisperEngine:
             temperature=0.0,
             vad_filter=use_vad,  # Enable VAD to filter silences
             vad_parameters=dict(
-                threshold=0.5,
-                min_speech_duration_ms=250,
-                min_silence_duration_ms=500
-            )
+                threshold=0.5, min_speech_duration_ms=250, min_silence_duration_ms=500
+            ),
         )
 
         # Combine all segments
-        transcription = " ".join([segment.text.strip()
-                                 for segment in segments])
+        transcription = " ".join([segment.text.strip() for segment in segments])
 
         detected_lang = info.language
         confidence = info.language_probability
@@ -115,9 +128,7 @@ class WhisperEngine:
         return transcription.strip()
 
     def transcribe_with_timestamps(
-        self,
-        audio_data: np.ndarray,
-        use_vad: bool = True
+        self, audio_data: np.ndarray, use_vad: bool = True
     ) -> List[Dict[str, any]]:
         """
         Transcribe with word-level timestamps.
@@ -136,27 +147,26 @@ class WhisperEngine:
             audio_data = audio_data / np.abs(audio_data).max()
 
         segments, _ = self.model.transcribe(
-            audio_data,
-            language=self.language,
-            word_timestamps=True,
-            vad_filter=use_vad
+            audio_data, language=self.language, word_timestamps=True, vad_filter=use_vad
         )
 
         result = []
         for segment in segments:
-            result.append({
-                "start": segment.start,
-                "end": segment.end,
-                "text": segment.text.strip(),
-                "words": [
-                    {
-                        "word": word.word,
-                        "start": word.start,
-                        "end": word.end,
-                        "probability": word.probability
-                    }
-                    for word in (segment.words or [])
-                ]
-            })
+            result.append(
+                {
+                    "start": segment.start,
+                    "end": segment.end,
+                    "text": segment.text.strip(),
+                    "words": [
+                        {
+                            "word": word.word,
+                            "start": word.start,
+                            "end": word.end,
+                            "probability": word.probability,
+                        }
+                        for word in (segment.words or [])
+                    ],
+                }
+            )
 
         return result

@@ -20,14 +20,12 @@ class TranscriptionWorker(QThread):
     """
     Worker thread for AI processing to prevent UI freezing.
     """
+
     finished = pyqtSignal(str, str)  # (transcription, refined)
     error = pyqtSignal(str)
 
     def __init__(
-        self,
-        whisper_engine: WhisperEngine,
-        text_refiner: TextRefiner,
-        audio_data
+        self, whisper_engine: WhisperEngine, text_refiner: TextRefiner, audio_data
     ):
         super().__init__()
         self.whisper_engine = whisper_engine
@@ -39,7 +37,8 @@ class TranscriptionWorker(QThread):
         try:
             # Step 1: Transcribe with Whisper
             transcription = self.whisper_engine.transcribe(
-                self.audio_data, use_vad=True)
+                self.audio_data, use_vad=True
+            )
 
             if not transcription.strip():
                 self.error.emit("No speech detected")
@@ -64,9 +63,9 @@ class FloatingButton(QWidget):
     """
 
     # Color schemes for each state
-    COLOR_IDLE = QColor(245, 235, 220)      # Beige/Cream
-    COLOR_RECORDING = QColor(220, 50, 50)    # Red
-    COLOR_PROCESSING = QColor(255, 215, 0)   # Gold
+    COLOR_IDLE = QColor(245, 235, 220)  # Beige/Cream
+    COLOR_RECORDING = QColor(220, 50, 50)  # Red
+    COLOR_PROCESSING = QColor(255, 215, 0)  # Gold
 
     def __init__(self):
         super().__init__()
@@ -74,10 +73,7 @@ class FloatingButton(QWidget):
         # Initialize AI components
         print("🚀 Initializing ZukuriFlow Elite...")
         self.whisper_engine = WhisperEngine(
-            model_size="base",
-            device="cpu",
-            compute_type="int8",
-            language="en"
+            model_size="base", device="cpu", compute_type="int8", language="en"
         )
         self.audio_recorder = AudioRecorder(sample_rate=16000, channels=1)
         self.text_refiner = TextRefiner()
@@ -136,6 +132,7 @@ class FloatingButton(QWidget):
         """Update pulse animation value."""
         import math
         from time import time
+
         self.pulse_value = (math.sin(time() * 3) + 1) / 2  # 0.0 to 1.0
         self.update()
 
@@ -143,6 +140,7 @@ class FloatingButton(QWidget):
         """Update glow animation value."""
         import math
         from time import time
+
         self.glow_value = (math.sin(time() * 2) + 1) / 2  # 0.0 to 1.0
         self.update()
 
@@ -192,8 +190,9 @@ class FloatingButton(QWidget):
     def mousePressEvent(self, event):
         """Handle mouse press for dragging and click."""
         if event.button() == Qt.MouseButton.LeftButton:
-            self.drag_position = event.globalPosition().toPoint() - \
-                self.frameGeometry().topLeft()
+            self.drag_position = (
+                event.globalPosition().toPoint() - self.frameGeometry().topLeft()
+            )
             event.accept()
 
     def mouseMoveEvent(self, event):
@@ -207,8 +206,11 @@ class FloatingButton(QWidget):
         if event.button() == Qt.MouseButton.LeftButton:
             # Only toggle if we didn't drag much
             if self.drag_position:
-                drag_distance = (event.globalPosition().toPoint(
-                ) - self.frameGeometry().topLeft() - self.drag_position).manhattanLength()
+                drag_distance = (
+                    event.globalPosition().toPoint()
+                    - self.frameGeometry().topLeft()
+                    - self.drag_position
+                ).manhattanLength()
                 if drag_distance < 10:  # Threshold for click vs drag
                     self.toggle_recording()
             self.drag_position = None
@@ -259,9 +261,7 @@ class FloatingButton(QWidget):
 
         # Create worker thread
         self.worker_thread = TranscriptionWorker(
-            self.whisper_engine,
-            self.text_refiner,
-            audio_data
+            self.whisper_engine, self.text_refiner, audio_data
         )
 
         # Connect signals
@@ -278,9 +278,7 @@ class FloatingButton(QWidget):
 
         # Save and paste
         self.clipboard_manager.copy_and_paste(
-            transcription=transcription,
-            refined_text=refined,
-            auto_paste=True
+            transcription=transcription, refined_text=refined, auto_paste=True
         )
 
         self.reset_to_idle()

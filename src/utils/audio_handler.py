@@ -49,8 +49,7 @@ class Recorder:
         # Verify microphone is available
         self._check_microphone()
 
-        logger.info(
-            f"Recorder initialized: {sample_rate}Hz, {channels} channel(s)")
+        logger.info(f"Recorder initialized: {sample_rate}Hz, {channels} channel(s)")
 
     def _check_microphone(self) -> None:
         """
@@ -61,13 +60,14 @@ class Recorder:
         """
         try:
             devices = sd.query_devices()
-            input_devices = [d for d in devices if d['max_input_channels'] > 0]
+            input_devices = [d for d in devices if d["max_input_channels"] > 0]
 
             if not input_devices:
                 raise RuntimeError(
-                    "No microphone detected. Please connect a microphone.")
+                    "No microphone detected. Please connect a microphone."
+                )
 
-            default_input = sd.query_devices(kind='input')
+            default_input = sd.query_devices(kind="input")
             logger.info(f"Using microphone: {default_input['name']}")
 
         except Exception as e:
@@ -75,11 +75,7 @@ class Recorder:
             raise RuntimeError(f"Microphone initialization failed: {e}")
 
     def _audio_callback(
-        self,
-        indata: np.ndarray,
-        frames: int,
-        time_info,
-        status
+        self, indata: np.ndarray, frames: int, time_info, status
     ) -> None:
         """
         Callback function for audio stream - collects frames into list.
@@ -120,7 +116,7 @@ class Recorder:
                     samplerate=self.sample_rate,
                     channels=self.channels,
                     dtype=self.dtype,
-                    callback=self._audio_callback
+                    callback=self._audio_callback,
                 )
                 self._stream.start()
 
@@ -183,7 +179,7 @@ class Recorder:
                     str(output_path),
                     audio_int16,
                     self.sample_rate,
-                    sampwidth=2  # 16-bit audio
+                    sampwidth=2,  # 16-bit audio
                 )
 
                 duration = len(audio_data) / self.sample_rate

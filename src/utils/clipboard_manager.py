@@ -40,7 +40,7 @@ class ClipboardManager:
         """Load existing history from history.json."""
         if self.history_file.exists():
             try:
-                with open(self.history_file, 'r', encoding='utf-8') as f:
+                with open(self.history_file, "r", encoding="utf-8") as f:
                     self.history = json.load(f)
                 print(f"📂 Loaded {len(self.history)} history entries")
             except json.JSONDecodeError:
@@ -53,14 +53,11 @@ class ClipboardManager:
 
     def _save_history(self) -> None:
         """Save history to history.json."""
-        with open(self.history_file, 'w', encoding='utf-8') as f:
+        with open(self.history_file, "w", encoding="utf-8") as f:
             json.dump(self.history, f, indent=2, ensure_ascii=False)
 
     def save_entry(
-        self,
-        transcription: str,
-        refined_text: str,
-        metadata: Optional[Dict] = None
+        self, transcription: str, refined_text: str, metadata: Optional[Dict] = None
     ) -> None:
         """
         Save a new entry to history before pasting.
@@ -74,7 +71,7 @@ class ClipboardManager:
             "timestamp": datetime.now().isoformat(),
             "transcription": transcription,
             "refined": refined_text,
-            "metadata": metadata or {}
+            "metadata": metadata or {},
         }
 
         self.history.append(entry)
@@ -106,10 +103,10 @@ class ClipboardManager:
 
         # Detect OS and use appropriate paste shortcut
         if platform.system() == "Darwin":  # macOS
-            pyautogui.hotkey('command', 'v')
+            pyautogui.hotkey("command", "v")
             print("⌘+V Pasted to active window (macOS)")
         else:  # Windows/Linux
-            pyautogui.hotkey('ctrl', 'v')
+            pyautogui.hotkey("ctrl", "v")
             print("🔽 Ctrl+V Pasted to active window")
 
     def copy_and_paste(
@@ -117,7 +114,7 @@ class ClipboardManager:
         transcription: str,
         refined_text: str,
         auto_paste: bool = True,
-        metadata: Optional[Dict] = None
+        metadata: Optional[Dict] = None,
     ) -> None:
         """
         Complete workflow: save to history, copy to clipboard, and optionally paste.
@@ -165,7 +162,7 @@ class ClipboardManager:
         Args:
             output_file: Path to output text file
         """
-        with open(output_file, 'w', encoding='utf-8') as f:
+        with open(output_file, "w", encoding="utf-8") as f:
             for i, entry in enumerate(self.history, 1):
                 f.write(f"Entry #{i}\n")
                 f.write(f"Timestamp: {entry['timestamp']}\n")

@@ -17,10 +17,7 @@ logger = logging.getLogger(__name__)
 DEFAULT_HISTORY_PATH = Path("output/history.json")
 
 
-def log_to_history(
-    refined_text: str,
-    history_path: Optional[Path] = None
-) -> bool:
+def log_to_history(refined_text: str, history_path: Optional[Path] = None) -> bool:
     """
     Append a transcription entry to the history JSON file.
 
@@ -61,34 +58,33 @@ def log_to_history(
         history: List[Dict[str, str]] = []
         if file_path.exists():
             try:
-                with open(file_path, 'r', encoding='utf-8') as f:
+                with open(file_path, "r", encoding="utf-8") as f:
                     content = f.read().strip()
                     if content:
                         history = json.loads(content)
                         if not isinstance(history, list):
-                            logger.warning(
-                                "History file corrupted, starting fresh")
+                            logger.warning("History file corrupted, starting fresh")
                             history = []
             except json.JSONDecodeError as e:
-                logger.warning(
-                    f"Could not parse history.json: {e}. Starting fresh.")
+                logger.warning(f"Could not parse history.json: {e}. Starting fresh.")
                 history = []
 
         # Create new entry with timestamp
         entry: Dict[str, str] = {
             "timestamp": datetime.now().isoformat(),
-            "content": refined_text.strip()
+            "content": refined_text.strip(),
         }
 
         # Append to history
         history.append(entry)
 
         # Save updated history
-        with open(file_path, 'w', encoding='utf-8') as f:
+        with open(file_path, "w", encoding="utf-8") as f:
             json.dump(history, f, indent=2, ensure_ascii=False)
 
         logger.info(
-            f"Logged to history: '{refined_text[:50]}...' (total: {len(history)} entries)")
+            f"Logged to history: '{refined_text[:50]}...' (total: {len(history)} entries)"
+        )
         return True
 
     except Exception as e:
@@ -97,8 +93,7 @@ def log_to_history(
 
 
 def get_history(
-    history_path: Optional[Path] = None,
-    limit: Optional[int] = None
+    history_path: Optional[Path] = None, limit: Optional[int] = None
 ) -> List[Dict[str, str]]:
     """
     Retrieve transcription history from JSON file.
@@ -117,7 +112,7 @@ def get_history(
         return []
 
     try:
-        with open(file_path, 'r', encoding='utf-8') as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             history = json.load(f)
 
         if not isinstance(history, list):
@@ -148,7 +143,7 @@ def clear_history(history_path: Optional[Path] = None) -> bool:
     file_path = history_path or DEFAULT_HISTORY_PATH
 
     try:
-        with open(file_path, 'w', encoding='utf-8') as f:
+        with open(file_path, "w", encoding="utf-8") as f:
             json.dump([], f)
 
         logger.info("History cleared successfully")
@@ -176,14 +171,13 @@ def get_history_stats(history_path: Optional[Path] = None) -> Dict[str, Any]:
     stats: Dict[str, Any] = {
         "total_entries": len(history),
         "file_exists": file_path.exists(),
-        "file_path": str(file_path)
+        "file_path": str(file_path),
     }
 
     if history:
         stats["first_entry"] = history[0].get("timestamp")
         stats["last_entry"] = history[-1].get("timestamp")
-        stats["total_characters"] = sum(
-            len(h.get("content", "")) for h in history)
+        stats["total_characters"] = sum(len(h.get("content", "")) for h in history)
 
     if file_path.exists():
         stats["file_size_kb"] = round(file_path.stat().st_size / 1024, 2)
@@ -205,8 +199,7 @@ class HistoryManager:
         Args:
             history_path: Custom path to history.json
         """
-        self.history_path = Path(
-            history_path) if history_path else DEFAULT_HISTORY_PATH
+        self.history_path = Path(history_path) if history_path else DEFAULT_HISTORY_PATH
         logger.info(f"HistoryManager initialized: {self.history_path}")
 
     def log(self, refined_text: str) -> bool:

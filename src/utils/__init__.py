@@ -9,30 +9,25 @@ from .text_refiner import TextRefiner
 from .clipboard_manager import ClipboardManager
 from .refiner import TextRefiner as Refiner
 from .ai_engine import WhisperEngine as AIEngine
-from .history_manager import (
-    log_to_history,
-    get_history,
-    clear_history,
-    HistoryManager
-)
+from .history_manager import log_to_history, get_history, clear_history, HistoryManager
 
 __all__ = [
     # Audio Recording
-    'AudioRecorder',
-    'StreamingRecorder',
-    'Recorder',
-    'AudioHandler',
+    "AudioRecorder",
+    "StreamingRecorder",
+    "Recorder",
+    "AudioHandler",
     # AI/Transcription
-    'WhisperEngine',
-    'AIEngine',
+    "WhisperEngine",
+    "AIEngine",
     # Text Refinement
-    'TextRefiner',
-    'Refiner',
+    "TextRefiner",
+    "Refiner",
     # Clipboard
-    'ClipboardManager',
+    "ClipboardManager",
     # History
-    'log_to_history',
-    'get_history',
-    'clear_history',
-    'HistoryManager',
+    "log_to_history",
+    "get_history",
+    "clear_history",
+    "HistoryManager",
 ]

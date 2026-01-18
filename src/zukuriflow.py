@@ -39,50 +39,37 @@ class ZukuriFlowGUI:
         """Create the GUI layout"""
         # Title
         title_label = ttk.Label(
-            self.root,
-            text="ZukuriFlow",
-            font=("Arial", 24, "bold")
+            self.root, text="ZukuriFlow", font=("Arial", 24, "bold")
         )
         title_label.pack(pady=10)
 
         # Recording button
         self.record_btn = ttk.Button(
-            self.root,
-            text="Start Recording",
-            command=self.toggle_recording,
-            width=20
+            self.root, text="Start Recording", command=self.toggle_recording, width=20
         )
         self.record_btn.pack(pady=10)
 
         # Status label
         self.status_label = ttk.Label(
-            self.root,
-            text="Ready to record",
-            font=("Arial", 10)
+            self.root, text="Ready to record", font=("Arial", 10)
         )
         self.status_label.pack(pady=5)
 
         # Transcription output
-        ttk.Label(self.root, text="Transcription:", font=(
-            "Arial", 12, "bold")).pack(pady=(20, 5))
+        ttk.Label(self.root, text="Transcription:", font=("Arial", 12, "bold")).pack(
+            pady=(20, 5)
+        )
         self.transcription_text = scrolledtext.ScrolledText(
-            self.root,
-            height=10,
-            width=90,
-            wrap=tk.WORD,
-            font=("Arial", 10)
+            self.root, height=10, width=90, wrap=tk.WORD, font=("Arial", 10)
         )
         self.transcription_text.pack(padx=10, pady=5)
 
         # Refined output
-        ttk.Label(self.root, text="Refined Text:", font=(
-            "Arial", 12, "bold")).pack(pady=(10, 5))
+        ttk.Label(self.root, text="Refined Text:", font=("Arial", 12, "bold")).pack(
+            pady=(10, 5)
+        )
         self.refined_text = scrolledtext.ScrolledText(
-            self.root,
-            height=10,
-            width=90,
-            wrap=tk.WORD,
-            font=("Arial", 10)
+            self.root, height=10, width=90, wrap=tk.WORD, font=("Arial", 10)
         )
         self.refined_text.pack(padx=10, pady=5)
 
@@ -117,15 +104,13 @@ class ZukuriFlowGUI:
 
         if not self.is_recording:
             # Recording was stopped
-            self.root.after(
-                0, lambda: self.status_label.config(text="Processing..."))
+            self.root.after(0, lambda: self.status_label.config(text="Processing..."))
 
             # Transcribe with Faster-Whisper
             transcription = self.ai_engine.transcribe(audio_data)
 
             # Update UI with transcription
-            self.root.after(
-                0, lambda: self.update_transcription(transcription))
+            self.root.after(0, lambda: self.update_transcription(transcription))
 
             # Refine the text
             refined = self.refiner.refine_text(transcription)
@@ -136,8 +121,7 @@ class ZukuriFlowGUI:
             # Save to history
             self.save_to_history(transcription, refined)
 
-            self.root.after(0, lambda: self.status_label.config(
-                text="Ready to record"))
+            self.root.after(0, lambda: self.status_label.config(text="Ready to record"))
 
     def update_transcription(self, text):
         """Update transcription text box"""
@@ -153,23 +137,23 @@ class ZukuriFlowGUI:
         """Save transcription to history.json"""
         history = []
         if self.history_file.exists():
-            with open(self.history_file, 'r', encoding='utf-8') as f:
+            with open(self.history_file, "r", encoding="utf-8") as f:
                 history = json.load(f)
 
         entry = {
             "timestamp": datetime.now().isoformat(),
             "transcription": transcription,
-            "refined": refined
+            "refined": refined,
         }
         history.append(entry)
 
-        with open(self.history_file, 'w', encoding='utf-8') as f:
+        with open(self.history_file, "w", encoding="utf-8") as f:
             json.dump(history, f, indent=2, ensure_ascii=False)
 
     def load_history(self):
         """Load history on startup"""
         if self.history_file.exists():
-            with open(self.history_file, 'r', encoding='utf-8') as f:
+            with open(self.history_file, "r", encoding="utf-8") as f:
                 history = json.load(f)
                 print(f"Loaded {len(history)} history entries")
 

@@ -31,7 +31,6 @@ class TextRefiner:
         "langgraph": "LangGraph",
         "openai": "OpenAI",
         "huggingface": "HuggingFace",
-
         # Programming Languages
         "python": "Python",
         "javascript": "JavaScript",
@@ -41,7 +40,6 @@ class TextRefiner:
         "java": "Java",
         "kotlin": "Kotlin",
         "swift": "Swift",
-
         # Databases & Query Languages
         "sql": "SQL",
         "nosql": "NoSQL",
@@ -49,7 +47,6 @@ class TextRefiner:
         "mysql": "MySQL",
         "mongodb": "MongoDB",
         "redis": "Redis",
-
         # Web Frameworks
         "nextjs": "Next.js",
         "next.js": "Next.js",
@@ -61,7 +58,6 @@ class TextRefiner:
         "fastapi": "FastAPI",
         "django": "Django",
         "flask": "Flask",
-
         # Professional Terms
         "sde": "SDE",
         "api": "API",
@@ -74,7 +70,6 @@ class TextRefiner:
         "devops": "DevOps",
         "cicd": "CI/CD",
         "ci/cd": "CI/CD",
-
         # Cloud & Infrastructure
         "aws": "AWS",
         "gcp": "GCP",
@@ -82,7 +77,6 @@ class TextRefiner:
         "docker": "Docker",
         "kubernetes": "Kubernetes",
         "k8s": "K8s",
-
         # Product Names
         "zukuriflow": "ZukuriFlow",
         "internshala": "Internshala",
@@ -94,7 +88,8 @@ class TextRefiner:
     def __init__(self) -> None:
         """Initialize the TextRefiner with technical mappings."""
         logger.info(
-            f"TextRefiner initialized with {len(self.technical_mappings)} technical mappings")
+            f"TextRefiner initialized with {len(self.technical_mappings)} technical mappings"
+        )
 
     def refine(self, text: str) -> str:
         """
@@ -128,17 +123,17 @@ class TextRefiner:
         logger.debug(f"After technical mappings: '{refined}'")
 
         # Step 3: Capitalize first letter
-        refined = refined[0].upper() + \
-            refined[1:] if len(refined) > 1 else refined.upper()
+        refined = (
+            refined[0].upper() + refined[1:] if len(refined) > 1 else refined.upper()
+        )
         logger.debug(f"After capitalization: '{refined}'")
 
         # Step 4: Append period if no ending punctuation
-        if refined[-1] not in '.!?':
-            refined += '.'
+        if refined[-1] not in ".!?":
+            refined += "."
             logger.debug("Added period at end")
 
-        logger.info(
-            f"Refinement complete: '{text[:50]}...' -> '{refined[:50]}...'")
+        logger.info(f"Refinement complete: '{text[:50]}...' -> '{refined[:50]}...'")
         return refined
 
     def _apply_technical_mappings(self, text: str) -> str:
@@ -155,7 +150,7 @@ class TextRefiner:
 
         for term_lower, term_proper in self.technical_mappings.items():
             # Use word boundaries for accurate matching
-            pattern = r'\b' + re.escape(term_lower) + r'\b'
+            pattern = r"\b" + re.escape(term_lower) + r"\b"
             result = re.sub(pattern, term_proper, result, flags=re.IGNORECASE)
 
         return result
@@ -197,6 +192,6 @@ def refine(text: str) -> str:
         text = text.replace(wrong, correct)
 
     # Add ending punctuation if missing
-    if not text.endswith(('.', '?', '!')):
+    if not text.endswith((".", "?", "!")):
         text += "."
     return text

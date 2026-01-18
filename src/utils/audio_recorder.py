@@ -19,10 +19,7 @@ class AudioRecorder:
     """
 
     def __init__(
-        self,
-        sample_rate: int = 16000,
-        channels: int = 1,
-        dtype: str = "float32"
+        self, sample_rate: int = 16000, channels: int = 1, dtype: str = "float32"
     ) -> None:
         """
         Initialize the AudioRecorder.
@@ -36,8 +33,7 @@ class AudioRecorder:
         self.channels = channels
         self.dtype = dtype
 
-        print(
-            f"🎙️ AudioRecorder initialized: {sample_rate}Hz, {channels}ch, {dtype}")
+        print(f"🎙️ AudioRecorder initialized: {sample_rate}Hz, {channels}ch, {dtype}")
 
     def record(self, duration: Optional[float] = None) -> np.ndarray:
         """
@@ -55,15 +51,14 @@ class AudioRecorder:
                 int(duration * self.sample_rate),
                 samplerate=self.sample_rate,
                 channels=self.channels,
-                dtype=self.dtype
+                dtype=self.dtype,
             )
             sd.wait()  # Wait until recording is finished
             print("✅ Recording complete")
             return audio_data.flatten()
         else:
             # For manual control, use record_streaming instead
-            raise NotImplementedError(
-                "Use record_streaming for manual control")
+            raise NotImplementedError("Use record_streaming for manual control")
 
     def record_streaming(self) -> "StreamingRecorder":
         """
@@ -73,9 +68,7 @@ class AudioRecorder:
             StreamingRecorder instance
         """
         return StreamingRecorder(
-            sample_rate=self.sample_rate,
-            channels=self.channels,
-            dtype=self.dtype
+            sample_rate=self.sample_rate, channels=self.channels, dtype=self.dtype
         )
 
     def save_wav(self, audio_data: np.ndarray, filename: str) -> None:
@@ -107,10 +100,7 @@ class StreamingRecorder:
     """
 
     def __init__(
-        self,
-        sample_rate: int = 16000,
-        channels: int = 1,
-        dtype: str = "float32"
+        self, sample_rate: int = 16000, channels: int = 1, dtype: str = "float32"
     ) -> None:
         """
         Initialize streaming recorder.
@@ -145,7 +135,7 @@ class StreamingRecorder:
             samplerate=self.sample_rate,
             channels=self.channels,
             dtype=self.dtype,
-            callback=callback
+            callback=callback,
         )
         self.stream.start()
         print("🔴 Recording started...")

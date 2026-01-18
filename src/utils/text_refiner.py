@@ -27,7 +27,6 @@ class TextRefiner:
         "rust": "Rust",
         "kotlin": "Kotlin",
         "swift": "Swift",
-
         # AI/ML Terms
         "rag": "RAG",
         "llm": "LLM",
@@ -38,7 +37,6 @@ class TextRefiner:
         "hugging face": "Hugging Face",
         "pytorch": "PyTorch",
         "tensorflow": "TensorFlow",
-
         # Databases
         "sql": "SQL",
         "nosql": "NoSQL",
@@ -47,7 +45,6 @@ class TextRefiner:
         "mongodb": "MongoDB",
         "redis": "Redis",
         "elasticsearch": "Elasticsearch",
-
         # Web/APIs
         "api": "API",
         "rest": "REST",
@@ -59,7 +56,6 @@ class TextRefiner:
         "http": "HTTP",
         "https": "HTTPS",
         "websocket": "WebSocket",
-
         # DevOps/Cloud
         "aws": "AWS",
         "azure": "Azure",
@@ -72,7 +68,6 @@ class TextRefiner:
         "devops": "DevOps",
         "nginx": "Nginx",
         "apache": "Apache",
-
         # Frameworks
         "react": "React",
         "vue": "Vue",
@@ -82,7 +77,6 @@ class TextRefiner:
         "fastapi": "FastAPI",
         "nextjs": "Next.js",
         "next.js": "Next.js",
-
         # Professional Terms
         "sde": "SDE",
         "ui": "UI",
@@ -94,13 +88,11 @@ class TextRefiner:
         "ide": "IDE",
         "cli": "CLI",
         "gui": "GUI",
-
         # Version Control
         "git": "Git",
         "github": "GitHub",
         "gitlab": "GitLab",
         "bitbucket": "Bitbucket",
-
         # Other
         "oauth": "OAuth",
         "jwt": "JWT",
@@ -125,8 +117,7 @@ class TextRefiner:
         if custom_jargon:
             self.jargon_map.update(custom_jargon)
 
-        print(
-            f"📝 TextRefiner initialized with {len(self.jargon_map)} jargon mappings")
+        print(f"📝 TextRefiner initialized with {len(self.jargon_map)} jargon mappings")
 
     def refine(self, text: str) -> str:
         """
@@ -170,7 +161,7 @@ class TextRefiner:
 
         for term_lower, term_proper in self.jargon_map.items():
             # Use word boundaries for accurate matching
-            pattern = r'\b' + re.escape(term_lower) + r'\b'
+            pattern = r"\b" + re.escape(term_lower) + r"\b"
             result = re.sub(pattern, term_proper, result, flags=re.IGNORECASE)
 
         return result
@@ -178,13 +169,13 @@ class TextRefiner:
     def _fix_spacing(self, text: str) -> str:
         """Fix common spacing issues."""
         # Remove multiple spaces
-        text = re.sub(r'\s+', ' ', text)
+        text = re.sub(r"\s+", " ", text)
 
         # Remove space before punctuation
-        text = re.sub(r'\s+([.,!?;:])', r'\1', text)
+        text = re.sub(r"\s+([.,!?;:])", r"\1", text)
 
         # Ensure space after punctuation
-        text = re.sub(r'([.,!?;:])([A-Za-z])', r'\1 \2', text)
+        text = re.sub(r"([.,!?;:])([A-Za-z])", r"\1 \2", text)
 
         return text.strip()
 
@@ -198,9 +189,7 @@ class TextRefiner:
 
         # Capitalize after sentence endings (. ! ?)
         text = re.sub(
-            r'([.!?])\s+([a-z])',
-            lambda m: m.group(1) + ' ' + m.group(2).upper(),
-            text
+            r"([.!?])\s+([a-z])", lambda m: m.group(1) + " " + m.group(2).upper(), text
         )
 
         return text
@@ -209,8 +198,8 @@ class TextRefiner:
         """
         Add period at the end if no punctuation exists.
         """
-        if text and text[-1] not in '.!?':
-            text += '.'
+        if text and text[-1] not in ".!?":
+            text += "."
 
         return text
 
@@ -219,40 +208,40 @@ class TextRefiner:
         Fix common contractions that may be transcribed incorrectly.
         """
         contractions = {
-            r'\bim\b': "I'm",
-            r'\bive\b': "I've",
-            r'\bill\b': "I'll",
-            r'\bid\b': "I'd",
-            r'\byoure\b': "you're",
-            r'\byouve\b': "you've",
-            r'\byoull\b': "you'll",
-            r'\byoud\b': "you'd",
-            r'\bhes\b': "he's",
-            r'\bshes\b': "she's",
-            r'\bits\b': "it's",
-            r'\bwere\b': "we're",
-            r'\bweve\b': "we've",
-            r'\bwell\b': "we'll",
-            r'\bwed\b': "we'd",
-            r'\btheyre\b': "they're",
-            r'\btheyve\b': "they've",
-            r'\btheyll\b': "they'll",
-            r'\btheyd\b': "they'd",
-            r'\bdont\b': "don't",
-            r'\bdoesnt\b': "doesn't",
-            r'\bdidnt\b': "didn't",
-            r'\bcant\b': "can't",
-            r'\bcouldnt\b': "couldn't",
-            r'\bwouldnt\b': "wouldn't",
-            r'\bshouldnt\b': "shouldn't",
-            r'\bwont\b': "won't",
-            r'\bisnt\b': "isn't",
-            r'\barent\b': "aren't",
-            r'\bwasnt\b': "wasn't",
-            r'\bwerent\b': "weren't",
-            r'\bhasnt\b': "hasn't",
-            r'\bhavent\b': "haven't",
-            r'\bhadnt\b': "hadn't",
+            r"\bim\b": "I'm",
+            r"\bive\b": "I've",
+            r"\bill\b": "I'll",
+            r"\bid\b": "I'd",
+            r"\byoure\b": "you're",
+            r"\byouve\b": "you've",
+            r"\byoull\b": "you'll",
+            r"\byoud\b": "you'd",
+            r"\bhes\b": "he's",
+            r"\bshes\b": "she's",
+            r"\bits\b": "it's",
+            r"\bwere\b": "we're",
+            r"\bweve\b": "we've",
+            r"\bwell\b": "we'll",
+            r"\bwed\b": "we'd",
+            r"\btheyre\b": "they're",
+            r"\btheyve\b": "they've",
+            r"\btheyll\b": "they'll",
+            r"\btheyd\b": "they'd",
+            r"\bdont\b": "don't",
+            r"\bdoesnt\b": "doesn't",
+            r"\bdidnt\b": "didn't",
+            r"\bcant\b": "can't",
+            r"\bcouldnt\b": "couldn't",
+            r"\bwouldnt\b": "wouldn't",
+            r"\bshouldnt\b": "shouldn't",
+            r"\bwont\b": "won't",
+            r"\bisnt\b": "isn't",
+            r"\barent\b": "aren't",
+            r"\bwasnt\b": "wasn't",
+            r"\bwerent\b": "weren't",
+            r"\bhasnt\b": "hasn't",
+            r"\bhavent\b": "haven't",
+            r"\bhadnt\b": "hadn't",
         }
 
         result = text
