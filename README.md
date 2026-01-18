@@ -73,14 +73,40 @@ ZukuriFlow Elite is optimized for technical terminology including:
 - AI/ML: RAG, LLM, GPT, LangChain, LangGraph, PyTorch, TensorFlow
 - Databases: SQL, PostgreSQL, MongoDB, Redis, Elasticsearch
 - DevOps: Docker, Kubernetes, AWS, CI/CD
-- And 100+ more technical terms with proper capitalizationhon src/zukuriflow.py
+- And 100+ more technical terms with proper capitalization
+
+## CI/CD Pipeline
+
+ZukuriFlow includes a GitHub Actions pipeline for automated testing and linting.
+
+### Pipeline Features
+
+- **Lint & Format**: Runs `flake8` and `black` for code quality
+- **Test**: Runs `pytest` for unit tests
+- **Multi-Python**: Tests on Python 3.9, 3.10, and 3.11
+- **Auto-trigger**: Runs on push to `main` and pull requests
+
+### Pipeline Status
+
+The pipeline is defined in `.github/workflows/ci.yml` and runs automatically on every push.
+
+To run checks locally:
+```bash
+# Lint
+flake8 src/ --max-line-length=120
+
+# Format check
+black src/ --check
+
+# Tests
+pytest tests/ -v
 ```
 
 ## Requirements
 
-- Python 3.8+
+- Python 3.9+
 - Microphone access
-- Internet connection (for AI features)
+- Works fully offline (local Whisper model)
 
 ## License
 
