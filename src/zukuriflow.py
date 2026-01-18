@@ -176,7 +176,7 @@ class ZukuriFlowGUI:
 
 def main():
     root = tk.Tk()
-    app = ZukuriFlowGUI(root)
+    ZukuriFlowGUI(root)  # noqa: F841
     root.mainloop()
 
 

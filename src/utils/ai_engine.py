@@ -4,7 +4,7 @@ Optimized for technical vocabulary with initial prompt and VAD filtering.
 """
 
 import logging
-from typing import Optional, List, Dict, Any
+from typing import List, Dict, Any
 from pathlib import Path
 
 from faster_whisper import WhisperModel

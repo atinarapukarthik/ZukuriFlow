@@ -5,10 +5,9 @@ Main application with PyQt6 floating button GUI
 
 from typing import Optional
 import sys
-from pathlib import Path
 
 from PyQt6.QtWidgets import QApplication, QWidget
-from PyQt6.QtCore import Qt, QTimer, QThread, pyqtSignal, QPoint, QPointF, QPropertyAnimation, QEasingCurve
+from PyQt6.QtCore import Qt, QTimer, QThread, pyqtSignal, QPointF
 from PyQt6.QtGui import QPainter, QColor, QRadialGradient, QBrush, QPen
 
 from utils.whisper_engine import WhisperEngine
@@ -106,9 +105,9 @@ class FloatingButton(QWidget):
         """Configure the floating button appearance."""
         # Frameless, transparent, always on top
         self.setWindowFlags(
-            Qt.WindowType.FramelessWindowHint |
-            Qt.WindowType.WindowStaysOnTopHint |
-            Qt.WindowType.Tool
+            Qt.WindowType.FramelessWindowHint
+            | Qt.WindowType.WindowStaysOnTopHint
+            | Qt.WindowType.Tool
         )
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
 
@@ -310,13 +309,13 @@ def main():
     button = FloatingButton()
     button.show()
 
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
     print("🎙️ ZukuriFlow Elite - Local AI Dictation")
-    print("="*60)
+    print("=" * 60)
     print("Click the button to start/stop recording")
     print("Drag the button to reposition")
     print("Press Ctrl+C in terminal to quit")
-    print("="*60 + "\n")
+    print("=" * 60 + "\n")
 
     sys.exit(app.exec())
 
